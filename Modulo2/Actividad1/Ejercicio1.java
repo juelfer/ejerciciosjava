@@ -29,10 +29,9 @@ public class Ejercicio1 {
     public static void main(String[] args) {
         System.out.println("Introduce array: ");
         Scanner scanner = new Scanner(System.in);
-        String arr = scanner.nextLine();
+        String arr = scanner.nextLine().toUpperCase();
         BinaryArray.setBoolstr(arr);
         boolean[] boolchar = new boolean[4];
-        //String str = new BinaryArray().getBoolstr();
         char[] strchar = arr.toCharArray();
         for (int i = 0; i<strchar.length; i++) {
             if (strchar[i] == 'T') {
@@ -46,23 +45,3 @@ public class Ejercicio1 {
         }
     }
 }
-
-
-//    boolean[] boolres = new boolean[boolstr.length()];
-//    String BinaryArray () {
-//        char[] boolchar = boolstr.toCharArray();
-//        int longi = boolchar.length;
-//        for (int i = 0; i < longi; i++) {
-//            switch (boolchar[i]) {
-//                case 'T':
-//boolres[i] = true;
-//                    break;
-//               case 'F':
-//                    boolres[i] = false;
-//                   break;
-//                default:
-//                    break;
-//            };
-//        }
-//        return boolres.toString();
-//    }

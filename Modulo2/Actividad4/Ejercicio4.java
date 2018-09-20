@@ -237,12 +237,6 @@ public class Ejercicio4 {
 
                     // Información de un empleado en particular.
 
-//                    Empleado empleado = new Empleado();
-//                    System.out.print("Apellidos del empleado: ");
-//                    empleado.apellidos = scanner.nextLine();
-//                    int i = empleados.indexOf(empleado.apellidos);
-//                    Empleado.InfoEmpleado(empleados.get(i));
-//                    break;
                     String apempleado;
                     System.out.print("Apellidos del empleado: ");
                     apempleado = scanner.nextLine();
