@@ -15,6 +15,7 @@
 
 package Modulo2.Actividad4;
 
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -52,6 +53,29 @@ class Empresa {
     public static void InfoEmpresa (Empresa empresa) {
         System.out.println(empresa.nombre);
         System.out.println(empresa.anyodefundacion);
+    }
+
+    public static Empresa BuscaEmpresa (String nombre, ArrayList<Empresa> empresas) {
+        Empresa res = new Empresa();
+        for (int i = 0 ; i< empresas.size(); i++) {
+            if (empresas.get(i).nombre == nombre) {
+                res = empresas.get(i);
+            }
+        }
+        return res;
+    }
+
+    public static void AnyadeEmpleado (String nombreempresa, String apempleado, ArrayList<Empleado> empleados, ArrayList<Empresa> empresas) {
+        Empresa empresa = BuscaEmpresa(nombreempresa, empresas);
+        Empleado empleado = Empleado.BuscaEmpleado(apempleado, empleados);
+        int i = empleados.indexOf(empleado.apellidos);
+        if (empleados.contains(empleado.apellidos)) {
+            int j = empresas.indexOf(empresa.nombre);
+            empresas.get(j).plantilla.add(empleados.get(i));
+            System.out.println("Se ha añadido a " + empleado.apellidos + " a empresa " + empresa.nombre);
+        } else {
+            System.out.println("No se ha encontrado al empleado");
+        }
     }
 }
 
@@ -112,6 +136,16 @@ class Empleado {
         System.out.println(empleado.fechanacimiento);
         System.out.println(empleado.fechacontrato);
     }
+
+    public static Empleado BuscaEmpleado (String nombre, ArrayList<Empleado> empleados) {
+        Empleado res = new Empleado();
+        for (int i = 0 ; i< empleados.size(); i++) {
+            if (empleados.get(i).nombre == nombre) {
+                res = empleados.get(i);
+            }
+        }
+        return res;
+    }
 }
 
 public class Ejercicio4 {
@@ -130,58 +164,50 @@ public class Ejercicio4 {
             System.out.println("7. Información de empleado");
             System.out.println("8. Salir");
             System.out.print("Opción: ");
-            int op = scanner.nextInt();
+            String op = scanner.nextLine();
 
             switch (op) {
-                case 1: {
+                case "1": {
                     //Crear empresa
                     Empresa empresa = new Empresa();
-                    System.out.print("Nombre de la empresa: ");
+                    System.out.println("Nombre de la empresa: ");
                     empresa.nombre = scanner.nextLine();
-                    System.out.print("Año de fundación: ");
+                    System.out.println("Año de fundación: ");
                     empresa.anyodefundacion = scanner.nextLine();
                     Empresa.CreaEmpresa(empresas, empresa);
                     System.out.println("Se ha creado " + empresa.nombre + ", fundada en " + empresa.anyodefundacion);
                     break;
                 }
-                case 2: {
+                case "2": {
                     //Añadir empleado a empresa existente
-                    Empresa empresa = new Empresa();
-                    Empleado empleado = new Empleado();
+                    String nombre, apellidos;
                     System.out.print("Introduzca nombre de empresa: ");
-                    empresa.nombre = scanner.nextLine();
+                    nombre = scanner.nextLine();
                     System.out.print("Apellidos del empleado: ");
-                    empleado.apellidos = scanner.nextLine();
-                    int i = empleados.indexOf(empleado.apellidos);
-                    if (empleados.contains(empleado.apellidos)) {
-                        int j = empresas.indexOf(empresa.nombre);
-                        empresas.get(j).plantilla.add(empleados.get(i));
-                        System.out.println("Se ha añadido a " + empleado.apellidos + " a empresa " + empresa.nombre);
-                    } else {
-                        System.out.println("No se ha encontrado al empleado");
-                    }
+                    apellidos = scanner.nextLine();
+                    Empresa.AnyadeEmpleado(nombre, apellidos, empleados, empresas);
                     break;
                 }
 
-                case 3: {
+                case "3": {
                     //Listado de empresas
 
                     Empresa.ListadoEmpresas(empresas);
                     break;
                 }
 
-                case 4: {
+                case "4": {
 
                     //Informacion de una empresa en particular.
-                    Empresa empresa = new Empresa();
+                    String nombreempresa;
                     System.out.print("Nombre de la empresa: ");
-                    empresa.nombre = scanner.nextLine();
-                    int k = empresas.indexOf(empresa.nombre);
-                    Empresa.InfoEmpresa(empresas.get(k));
+                    nombreempresa = scanner.nextLine();
+                    Empresa empresa = Empresa.BuscaEmpresa(nombreempresa, empresas);
+                    Empresa.InfoEmpresa(empresa);
                     break;
                 }
 
-                case 5: {
+                case "5": {
 
                     // Crear empleado.
 
@@ -200,26 +226,32 @@ public class Ejercicio4 {
                     break;
                 }
 
-                case 6: {
+                case "6": {
                     // Listado de empleados
 
                     Empleado.ListadoEmpleados(empleados);
                     break;
                 }
 
-                case 7: {
+                case "7": {
 
                     // Información de un empleado en particular.
 
-                    Empleado empleado = new Empleado();
+//                    Empleado empleado = new Empleado();
+//                    System.out.print("Apellidos del empleado: ");
+//                    empleado.apellidos = scanner.nextLine();
+//                    int i = empleados.indexOf(empleado.apellidos);
+//                    Empleado.InfoEmpleado(empleados.get(i));
+//                    break;
+                    String apempleado;
                     System.out.print("Apellidos del empleado: ");
-                    empleado.apellidos = scanner.nextLine();
-                    int l = empleados.indexOf(empleado.apellidos);
-                    Empleado.InfoEmpleado(empleados.get(l));
+                    apempleado = scanner.nextLine();
+                    Empleado empleado = Empleado.BuscaEmpleado(apempleado, empleados);
+                    Empleado.InfoEmpleado(empleado);
                     break;
                 }
 
-                case 8: {
+                case "8": {
                     appOn = false;
                     break;
                 }
